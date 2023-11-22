@@ -1,18 +1,22 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 
 
 const LoginForm = ({ onLogin, userData }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const route = useRouter();
+  const router = useRouter();
+  
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     var userData1 = localStorage.getItem("userData");
-       var userData = JSON.parse(userData1);
-      
+    // var isLogin = localStorage.setItem("isLogin",1)
+    
+    var userData = JSON.parse(userData1);
     try{
         const response = await fetch('/api/auth/login', {
           method:'POST',
@@ -24,16 +28,23 @@ const LoginForm = ({ onLogin, userData }) => {
         console.log('Login S', response);
         if(response.ok){
           const data = await response.json();
+          console.log("Server Response data")
+          
+          localStorage.setItem('isLogin', 1);
           onLogin({data});
-          route.push('/dashboard');
+          console.log('loged in')
+          router.push('/dashboard')
+          
         }else{
           console.error('Login failed')
+          localStorage.setItem('isLogin', 0);
         }
     }catch(error){
       console.error('Login error:', error);
     }
     onLogin({ userName, password });
   };
+  
 
   return (
     <div className="fixed top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 z-50">
@@ -89,7 +100,7 @@ const LoginForm = ({ onLogin, userData }) => {
               Login to your account
             </button>
             <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-white ">
-              Not registered?{' '}
+              If not Registered{' '}
               <Link href="/register" className="text-white-700 hover:underline">
                 Create account
               </Link>

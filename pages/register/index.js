@@ -5,6 +5,7 @@ import React from 'react'
 const index = () => {
     const handleRegister = (userData)=>{
         localStorage.setItem("userData",JSON.stringify(userData.data));
+        
     }
     
     

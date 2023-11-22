@@ -1,8 +1,26 @@
-import React, { useState } from 'react'
+
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+
 
 const index = () => {
-  
+ 
   const [isDropdownOpen, setIsDropdownOpen] = useState()
+  const router = useRouter()
+
+  useEffect(()=>{
+    const isLoginValue = localStorage.getItem('isLogin');
+    console.log("isLoginValue", typeof isLoginValue)
+    if(isLoginValue !== "1"){
+      router.push('/')
+    }else if(router.pathname !== '/dashboard'){
+      router.push('/dashboard')
+    }
+  },[])
+  
+  const handleSignOut =()=>{
+    
+  }
   
   const toggleDropdown = ()=>{
     setIsDropdownOpen(!isDropdownOpen)
@@ -67,6 +85,7 @@ const index = () => {
           </div>
         </nav>
     </div>
+   
   )
 }
 

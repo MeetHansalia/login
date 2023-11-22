@@ -52,6 +52,7 @@ const RegisterForm = ({onRegister}) => {
       if(response.ok){
         const responseData = await response.json();
         onRegister(responseData);
+        localStorage.setItem("isLogin", 0);
         router.push('/')
       }else{
         console.error('Registration failed')
