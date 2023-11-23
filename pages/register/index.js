@@ -1,3 +1,5 @@
+
+
 import Layout from '@/components/Layout'
 import RegisterForm from '@/components/RegisterForm'
 import { useRouter } from 'next/router'
@@ -7,7 +9,7 @@ const index = () => {
   const router = useRouter()
     const handleRegister = (userData)=>{
         localStorage.setItem("userData",JSON.stringify(userData.data));
-        
+        localStorage.setItem("isLogin", 0);
     }
     useEffect(()=>{
       console.log("Current path:", router.pathname)
@@ -18,7 +20,7 @@ const index = () => {
       if (isLoginValue == "1") {
         router.push('/dashboard');
       }
-    },[router.pathname])
+    },[])
     
   return (
    <Layout>
