@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 
 
@@ -27,20 +28,20 @@ const LoginForm = ({ onLogin, userData }) => {
         });
         console.log('Login S', response);
         if(response.ok){
-          const data = await response.json();
-          console.log("Server Response data")
-          
+          const data = await response.json();          
           localStorage.setItem('isLogin', 1);
           onLogin({data});
           console.log('loged in')
           router.push('/dashboard')
-          
+          toast.success('Successfully Logged In')
         }else{
           console.error('Login failed')
           localStorage.setItem('isLogin', 0);
+          toast.error('InValid Username & Password, Plz check')
         }
     }catch(error){
       console.error('Login error:', error);
+      
     }
     onLogin({ userName, password });
   };

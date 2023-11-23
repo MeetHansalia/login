@@ -1,7 +1,8 @@
 
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-
+import { toast } from 'react-toastify';
 
 const index = () => {
  
@@ -10,16 +11,21 @@ const index = () => {
 
   useEffect(()=>{
     const isLoginValue = localStorage.getItem('isLogin');
+    console.log('Meet')
     console.log("isLoginValue", typeof isLoginValue)
     if(isLoginValue !== "1"){
       router.push('/')
+      
     }else if(router.pathname !== '/dashboard'){
       router.push('/dashboard')
     }
+    
   },[])
   
   const handleSignOut =()=>{
-    
+    localStorage.setItem('isLogin', 0);
+    localStorage.removeItem('userData');
+    toast.success('Successfully Logged out')
   }
   
   const toggleDropdown = ()=>{
@@ -75,7 +81,7 @@ const index = () => {
                           </li>
                         </ul>
                         <div className="py-1">
-                          <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                          <Link href="/"  onClick={handleSignOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
                         </div>
                     </div>
                 </li>

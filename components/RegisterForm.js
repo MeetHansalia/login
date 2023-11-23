@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import * as yup from 'yup'
@@ -17,12 +17,18 @@ const validationSchema = yup.object().shape({
     .trim()
     .required('Username is required')
     .min(2,'Username must be at least 2 characters')
-    .matches(/^[a-zA-Z0-9]+$/, 'Username must only contain alphabets and numbers'),
+    .max(16,'Username must be below 16 characters')
+    .matches(/^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$/, 'Username must contain at least one letter'),
   password: yup
     .string()
     .trim()
     .required('Passowrd is required')
-    .min(6,'Password must be at least 6 characters'),
+    .min(6,'Password must be at least 6 characters')
+    .max(16,'Username must be below 16 characters')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{6,}$/,
+      'Password must meet the criteria: at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*), and be at least 6 characters long'
+    ),
   confirmPassword:yup
     .string()
     .trim()
@@ -61,6 +67,20 @@ const RegisterForm = ({onRegister}) => {
       console.error('Registration error:', error)
     }
   }
+  
+  useEffect(()=>{
+    console.log("Current path:", router.pathname)
+    
+    const isLoginValue = localStorage.getItem('isLogin');
+    console.log("isLoginValue", typeof isLoginValue)
+    
+    if (isLoginValue !== "1" && router.pathname !== '/register') {
+      router.push('/register');
+      alert('You need to register');
+    }
+  },[router.pathname])
+  
+  
   
   const password = watch('password', '') 
   

@@ -8,9 +8,9 @@ import React, { useEffect, useState } from 'react';
 function HomePage(){
     const router = useRouter();
     useEffect(()=>{
-        const isLoginValue = localStorage.getItem('isLogin');
-        console.log("isLoginValue", typeof isLoginValue)
+        const isLoginValue = localStorage.getItem('isLogin');        
         if(isLoginValue !== "1"){
+            if(router.pathname !== '/register')
           router.push('/')
         }else{
           router.push('/dashboard')
