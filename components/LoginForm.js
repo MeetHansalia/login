@@ -48,7 +48,7 @@ const LoginForm = ({ onLogin, userData }) => {
   
 
   return (
-    <div className="fixed top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 z-50">
+    <div className="fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 z-50">
       <div className="relative bg-white rounded-lg shadow w-full max-w-md rounded-lg shadow dark:bg-gray-700 ml-40">
         {/* <!-- Modal header --> */}
         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">

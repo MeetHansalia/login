@@ -9,23 +9,22 @@ const index = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState()
   const router = useRouter()
 
-  useEffect(()=>{
+  useEffect(() => {
     const isLoginValue = localStorage.getItem('isLogin');
-    console.log('Meet')
-    console.log("isLoginValue", typeof isLoginValue)
-    if(isLoginValue !== "1"){
-      router.push('/')
-      
-    }else if(router.pathname !== '/dashboard'){
-      router.push('/dashboard')
-    }
+    console.log('Meet');
+    console.log('isLoginValue', typeof isLoginValue);
     
-  },[])
+    if (isLoginValue === "0") {
+      router.push('/');
+    } else {
+      router.push('/dashboard');
+    }
+     
+  }, []);
   
   const handleSignOut =()=>{
     localStorage.setItem('isLogin', 0);
     localStorage.removeItem('userData');
-    toast.success('Successfully Logged out')
   }
   
   const toggleDropdown = ()=>{

@@ -68,17 +68,7 @@ const RegisterForm = ({onRegister}) => {
     }
   }
   
-  useEffect(()=>{
-    console.log("Current path:", router.pathname)
-    
-    const isLoginValue = localStorage.getItem('isLogin');
-    console.log("isLoginValue", typeof isLoginValue)
-    
-    if (isLoginValue !== "1" && router.pathname !== '/register') {
-      router.push('/register');
-      alert('You need to register');
-    }
-  },[router.pathname])
+
   
   
   
